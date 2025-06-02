@@ -1,9 +1,22 @@
 import React from 'react'
 import {TypeAnimation} from 'react-type-animation'
 import pic from '../assets/img.png'
+import { UserAuth } from '../context/AuthContext'
 
 
 export const Login = () => {
+  const {signInWithGoogle, currentUser} = UserAuth();
+   
+  // login function
+  const handleLogin = async () =>{
+     try{
+      await signInWithGoogle();
+     }
+     catch(error){
+      console.log(error);
+     }
+  }
+
   return (
     <div className='flex h-screen'>
       {/* Add the login screen image */}
@@ -50,7 +63,7 @@ export const Login = () => {
         {/* Social Login Buttons */}
 
         <div className="space-y-4">
-             <button className="w-full bg-red-400 rounded-full shadow-lg hover:bg-red-200">
+             <button onClick={handleLogin} className="w-full bg-red-400 rounded-full shadow-lg hover:bg-red-200">
                 Login With Google
              </button>
         </div>
